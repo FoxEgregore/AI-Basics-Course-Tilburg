@@ -9,7 +9,7 @@ In this first meeting, we will explore how we got to today's AI and the fundamen
 - **30-45 min:** AI Glossary: LLM, Token, Prompt, GenAI.
 - **45-55 min:** Video Viewing (5 min) and immediate discussion (5 min).
 - **55-75 min:** Providers Overview (OpenAI, Anthropic, Google, Meta, Qwen, Deepseek).
-- **75-85 min:** Privacy Basics and Everyday Examples.
+- **75-85 min:** "Privacy basics: what you should and shouldn't share with an AI (Introduction to the second lessons)".
 - **85-90 min:** Session open for Q&A and homework.
 
 ## 1. History in Brief (Essential Timeline)
