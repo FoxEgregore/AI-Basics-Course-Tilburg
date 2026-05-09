@@ -1,0 +1,180 @@
+
+<style>
+  h2.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .course-header{padding:1.5rem 0 1rem}
+  .lesson-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:10px;cursor:pointer;transition:border-color .15s}
+  .lesson-card:hover{border-color:var(--color-border-primary)}
+  .lesson-card.active{border-color:var(--color-border-info);border-width:1.5px}
+  .card-top{display:flex;align-items:center;gap:12px}
+  .lesson-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;flex-shrink:0}
+  .card-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+  .card-meta{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+  .balance-bar{height:7px;border-radius:4px;background:var(--color-background-secondary);margin:10px 0 4px;overflow:hidden;display:flex}
+  .bar-theory{background:#7F77DD;border-radius:4px 0 0 4px}
+  .bar-practice{background:#1D9E75;border-radius:0 4px 4px 0}
+  .bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--color-text-secondary)}
+  .card-detail{margin-top:12px;padding-top:12px;border-top:0.5px solid var(--color-border-tertiary);display:none}
+  .card-detail.open{display:block}
+  .topic-list{list-style:none;padding:0;margin:0 0 10px}
+  .topic-list li{font-size:13px;color:var(--color-text-secondary);padding:3px 0;display:flex;gap:8px;align-items:flex-start}
+  .topic-list li::before{content:'·';color:var(--color-border-primary);flex-shrink:0}
+  .activity-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:var(--border-radius-md);margin:2px 4px 2px 0}
+  .badge-p{background:#E1F5EE;color:#0F6E56}
+  .badge-qa{background:#EEEDFE;color:#534AB7}
+  .section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin:10px 0 6px;text-transform:uppercase;letter-spacing:.04em}
+  .note-box{font-size:12px;color:var(--color-text-secondary);font-style:italic;border-top:0.5px solid var(--color-border-tertiary);padding-top:8px;margin-top:8px}
+  .legend{display:flex;gap:16px;font-size:12px;color:var(--color-text-secondary);margin-top:6px;flex-wrap:wrap}
+  .legend-dot{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:-1px}
+</style>
+
+<h2 class="sr-only">ICT Tilburg AI Course — 4-lesson curriculum with theory and practice balance per lesson</h2>
+
+<div class="course-header">
+  <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+    <span style="font-size:18px;font-weight:500;color:var(--color-text-primary)">AI for Everyone</span>
+    <span style="font-size:13px;color:var(--color-text-secondary)">ICT International Center of Tilburg · 4 lessons · 1–1.5 h each</span>
+  </div>
+  <div class="legend">
+    <span><span class="legend-dot" style="background:#7F77DD"></span>Theory</span>
+    <span><span class="legend-dot" style="background:#1D9E75"></span>Practice</span>
+    <span><span class="legend-dot" style="background:#AFA9EC"></span>Q&A / Review</span>
+  </div>
+</div>
+
+<div id="lessons"></div>
+
+<script>
+const lessons = [
+  {
+    num: 1,
+    title: "What is AI?",
+    subtitle: "Concepts, history and everyday examples",
+    theory: 100, practice: 0, type: "theory",
+    duration: "60 min",
+    numBg: "#CECBF6", numFg: "#3C3489",
+    topics: [
+      "Brief history: from chess machines to ChatGPT",
+      "How AI differs from a normal computer program",
+      "Key terms explained simply: machine learning, neural network, large language model",
+      "How to choose the best AI model for your task: Claude - GPT - Gemini - Qwen - Deepseek - etc...",
+      "AI you already use every day: maps, autocomplete, recommendations, face recognition",
+      "Privacy basics: what you should and shouldn't share with an AI (Introduction to the second lessons)"
+    ],
+    activities: [
+      "Short video clip (5 min)",
+      "Group discussion: where have you already met AI?",
+      "No devices required — relaxed atmosphere"
+    ],
+    note: "Pure concepts only. Goal: everyone leaves with a shared vocabulary and zero fear."
+  },
+  {
+    num: 2,
+    title: "Talking to AI",
+    subtitle: "Writing prompts that actually work",
+    theory: 60, practice: 40, type: "mixed",
+    numBg: "#9FE1CB", numFg: "#085041",
+    duration: "75 min",
+    topics: [
+      "What is a prompt and why does wording matter?",
+      "Anatomy of a good prompt: context · task · format",
+      "How to iterate: refining when the first answer isn't good enough",
+      "Asking AI to explain, summarise, translate, or rewrite",
+      "!important: Hallucinations: why AI sometimes invents things — and how to spot it"
+    ],
+    activities: [
+      "First hands-on: ask a free AI chatbot a simple question",
+      "Prompt challenge: compare a vague vs a detailed prompt",
+      "Pairs: rewrite a bad prompt together and share results"
+    ],
+    note: "First screens. Keep tasks simple — one question per round, no accounts needed if possible. (GPT - the best for rapid question-answering)"
+  },
+  {
+    num: 3,
+    title: "AI in your daily life",
+    subtitle: "Tools you can use starting today",
+    theory: 20, practice: 80, type: "practice",
+    numBg: "#5DCAA5", numFg: "#04342C",
+    duration: "75–90 min",
+    topics: [
+      "Quick recap: the most common prompt mistakes (10 min)",
+      "AI writing assistants: emails, letters, social posts",
+      "AI for search and research: Google AI, Copilot, Perplexity",
+      "When NOT to use AI — and how to fact-check its output",
+      "Discovering more tools: image generation, code assistants, voice-to-text, etc. (Antigravity, Windsurf, VSCode, ElevenLabs, OpenArt, Figma Weave (more expensive then OpenArt but better in the workflow management))"
+    ],
+    activities: [
+      "Write a real email or letter with AI assistance",
+      "Use AI to research a topic you personally care about",
+      "Mini-showcase: each person shares one output with the group",
+      "Personal mini-project introduced: choose your own topic for lesson 4"
+    ],
+    note: "Use only free tools available in the Netherlands — no paid subscriptions required."
+  },
+  {
+    num: 4,
+    title: "Your project · Q&A · Next steps",
+    subtitle: "Hands-on project, open questions and wrap-up",
+    theory: 0, practice: 0, type: "qa",
+    numBg: "#EEEDFE", numFg: "#534AB7",
+    duration: "60–75 min",
+    topics: [],
+    activities: [
+      "Project time: complete your personal mini-project with AI (recipe book, travel plan, letter, study guide…)",
+      "Project showcase: each participant briefly presents their result",
+      "Open Q&A: any topic from the course",
+      "Resource handout: trusted free AI tools to keep using",
+      "Group reflection: what will you use AI for from now on?"
+    ],
+    note: "Celebratory tone. End on confidence, curiosity — not caution."
+  }
+];
+
+function renderBar(l) {
+  if (l.type === "qa") return `
+    <div class="balance-bar"><div style="width:100%;background:#EEEDFE;border-radius:4px"></div></div>
+    <div class="bar-labels"><span style="color:#534AB7">Project · Q&A · Wrap-up</span><span></span></div>`;
+  return `
+    <div class="balance-bar">
+      ${l.theory > 0 ? `<div class="bar-theory" style="width:${l.theory}%"></div>` : ''}
+      ${l.practice > 0 ? `<div class="bar-practice" style="width:${l.practice}%"></div>` : ''}
+    </div>
+    <div class="bar-labels"><span>${l.theory}% theory</span><span>${l.practice}% practice</span></div>`;
+}
+
+const container = document.getElementById('lessons');
+lessons.forEach((l, i) => {
+  const div = document.createElement('div');
+  div.className = 'lesson-card';
+  const badgeClass = l.type === 'qa' ? 'badge-qa' : 'badge-p';
+  const badgeIcon = l.type === 'qa' ? 'message-circle' : 'pencil';
+  div.innerHTML = `
+    <div class="card-top">
+      <div class="lesson-num" style="background:${l.numBg};color:${l.numFg}">${l.num}</div>
+      <div style="flex:1">
+        <div class="card-title">${l.title}</div>
+        <div class="card-meta">${l.subtitle} &nbsp;·&nbsp; ${l.duration}</div>
+      </div>
+      <i class="ti ti-chevron-down" style="font-size:16px;color:var(--color-text-secondary);transition:transform .2s" aria-hidden="true"></i>
+    </div>
+    ${renderBar(l)}
+    <div class="card-detail" id="detail-${i}">
+      ${l.topics.length ? `
+        <div class="section-label">Topics</div>
+        <ul class="topic-list">${l.topics.map(t => `<li>${t}</li>`).join('')}</ul>
+      ` : ''}
+      <div class="section-label">Activities</div>
+      <div style="margin-bottom:8px">${l.activities.map(a => `<span class="activity-badge ${badgeClass}"><i class="ti ti-${badgeIcon}" style="font-size:11px" aria-hidden="true"></i> ${a}</span>`).join('')}</div>
+      <div class="note-box">${l.note}</div>
+    </div>
+  `;
+  div.addEventListener('click', () => {
+    const det = document.getElementById(`detail-${i}`);
+    const chev = div.querySelector('.ti-chevron-down');
+    const isOpen = det.classList.contains('open');
+    det.classList.toggle('open', !isOpen);
+    chev.style.transform = isOpen ? '' : 'rotate(180deg)';
+    div.classList.toggle('active', !isOpen);
+  });
+  container.appendChild(div);
+});
+</script>
